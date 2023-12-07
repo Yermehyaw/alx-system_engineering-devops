@@ -1,1 +1,1 @@
-Learn Sgell Scripting
+Learn Shell Scripting
