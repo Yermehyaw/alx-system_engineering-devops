@@ -9,3 +9,8 @@ Learn Shell Scripting
 7-movethatfile: Move the file betty from /tmp/ to /tmp/my_first_directory
 8-firstdelete:Delete the file betty
 9-firstdirdeletion: Delete the directory my_first_directory that is in the /tmp directory
+10-back: Changes the working directory to the previous one
+11-lists: Prints current, parent and /boot directories
+12-file_type: Print the type of the file named iamafile
+13-symbolic_link: Create a symbolic link to /bin/ls, named __ls__
+14-copy_html: Copy all updated or new HTML files from the current working directory to the parent 
