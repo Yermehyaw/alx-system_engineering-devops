@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+#zPrints "Best School" 10x uding an until loop
+
+i=0
+until [[ "$i" -eq 10 ]]
+do
+    echo "Best School"
+    (( i++ ))
+done
