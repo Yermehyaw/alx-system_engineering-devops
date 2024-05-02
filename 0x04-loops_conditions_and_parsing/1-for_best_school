@@ -1,9 +1,7 @@
 #!/usr/bin/env bash
 #Print "Best School" ten times using a shelll for loop
 
-i=10
-
-for ((i; i<0; i--))
+for (( i=10; i > 0; i--))
 do
-	echo "Best School"
+    echo "Best School"
 done
