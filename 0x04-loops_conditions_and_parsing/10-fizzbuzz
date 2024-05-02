@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Implement the FizzBuxx quiz question
 
-for (( i=1; i < 21; i++ ))
+for (( i=1; i < 101; i++ ))
 do
     if (( i % 15 == 0 ))
     then
