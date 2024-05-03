@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# Handles few kill signals
+
+trap 'echo "I hate the kill command" && rm /var/run/myscript.pid' SIGTERM || SIGQUIT
+trap 'echo "Y U no love me?!"' SIGINT
+
+touch /var/run/myscript.pid
+pid_file=$(pgrep -f /var/run/mysript.pid)
+echo "$pid_file" > /var/run/myscript.pid
+
+i=0
+while (( i == 0))
+do
+    echo "To infinity and beyond"
+    sleep 2
+done
