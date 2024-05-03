@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# Print a string indefinitely that cannot be terminated by kill
+
+trap 'echo "I am invincible!!!"' SIGTERM
+i=0
+while (( i == 0))
+do
+    echo "To infinity and beyond"
+    sleep 2
+done
