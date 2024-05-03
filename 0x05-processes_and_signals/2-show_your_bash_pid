@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
-pid=$(ps -ufeH -C bash); echo "$pid"
+# Print pid of specific process name
 # shellcheck disable=SC2009
+ps -eu | grep "bash
