@@ -1,12 +1,11 @@
 #!/usr/bin/env bash
 # Prints content of the current directory, in a list format with a filter
 
-i=0
-cwd="./*"
-if [ -d "$cwd"]
-then
-    for (( ))
-    do
-	ls -l "$cwd"
-    done
-fi
+cwd=.
+for i in "$cwd"/*
+do
+    if [ -f "$i" ]
+    then
+	echo "$i" | cut -d '-' -f 2-
+    fi
+done
