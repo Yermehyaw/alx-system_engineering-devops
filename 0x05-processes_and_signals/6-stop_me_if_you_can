@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Kills a process in another term with pkill
+
+pkill 4-to_infinity_and_beyond
