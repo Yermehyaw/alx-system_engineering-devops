@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Print specific pod using pgrep
+
+pgrep -l bash
