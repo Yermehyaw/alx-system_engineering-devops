@@ -4,8 +4,8 @@
 cwd=.
 for i in "$cwd"/*
 do
-    if [ -f "$i" ]
-    then
-	echo "$i" | grep "-" | cut -d '-' -f 2-
-    fi
+#    if [ -f "$i" ] || [ -h "$i" ] || [ -b  "$i" ] || [ -p "$i" ]
+#    then
+    echo "$i" | grep "-" | cut -d '-' -f 2-
+#    fi
 done
