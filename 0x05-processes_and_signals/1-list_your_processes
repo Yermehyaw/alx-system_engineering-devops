@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 # Print processes of all users in hierarchial format
 
-ps -u
+ps -eu
