@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 # Kills a process
 
-pid_kill=$(ps -ueH 4-to_infinity_and_beyond)
+pid_kill=$(pgrep 4-to_infinity_and_beyond)
 kill "$pid_kill"
