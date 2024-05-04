@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 # init script for manage_my_process script
 
-if [ "$#" = 1 ] && [ -x ./manage_my_process ]
-then
+if [ "$#" = 1 ] && [ -x ./manage_my_process ]; then
     case $1 in
 	start )
 	    ./manage_my_process &
