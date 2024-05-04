@@ -15,6 +15,7 @@ if [ "$#" = 1 ] && [ -x ./manage_my_process ]; then
 	    rm /var/run/my_process.pid && echo "manage_my_process stopped"
 	    ;;
 	restart )
+	    pid=$(cat /var/run/my_process.pid)
 	    kill -s SIGTERM "$pid"
             rm /var/run/my_process.pid && echo "manage_my_process stopped"
 	    ./manage_my_process &
