@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# Indefintly writes a string ibto a file (Using shell positional params and
+#init files)
+
+i=0
+while (( i == 0 ))
+then
+    echo "I am alive!" >> /tmp/my_process
+    sleep 2
+done

@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+# init script for manage_my_process script
+
+if [ "$#" = 1 ] && [ -x ./manage_my_process ] # && [ "$2" -eq "" ]
+then
+    case $1 in
+	start )
+	    ./manage_my_process & pid=$!
+	    echo "$pid" > /var/run/my_process.pid
+	    echo "manage_my_process started"
+	    ;;
+	stop )
+	    pid=$(cat /var/run/my_process.pid)
+	    kill -s SIGTERM "$pid"
+	    rm /var/run/my_process.pid && echo "manage_my_process stopped"
+	    ;;
+	restart )
+	    kill -s SIGTERM "$pid"
+            rm /var/run/my_process.pid && echo "manage_my_process stopped"
+	    ./manage_my_process & pid=$!
+            echo "$pid" > /var/run/my_process.pid
+            echo "manage_my_process restarted"
+	    ;;
+	* )
+	    echo "Usage: manage_my_process {start|stop|restart}"
+	    ;;
+    esac
+else
+    echo "Usage: manage_my_process {start|stop|restart}"
+fi
