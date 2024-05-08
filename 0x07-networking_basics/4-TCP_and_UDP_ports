@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# Shows all lostening ports on a server with the program name using the port(s)
+netstat -lp
