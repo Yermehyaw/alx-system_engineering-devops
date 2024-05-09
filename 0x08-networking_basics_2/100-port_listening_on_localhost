@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# Opens a server to listen for any incomibg connection
+nc -l 98
