@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# Displays all running ipv4 addresses
+ifconfig -a | grep "(?<=inet )[[:digit:]].[[:digit:]].[[:digit:]].[[:digit:]]"
