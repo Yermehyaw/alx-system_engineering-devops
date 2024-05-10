@@ -1,13 +1,8 @@
 #!/usr/bin/env bash
-# Pings an ip address received a shell argument
-i=5
+# Pings an ip address received a shell argument 5x only
 if [ "$#" -eq 1 ]
 then
-    while (( i > 0 ))
-    do
-	ping "$1"
-	(( --i ))
-    done
+    ping -c5 "$1"
 else
     echo "Usage: 5-is_the_host_on_the_network {IP_ADDRESS}"
 fi
