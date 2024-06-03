@@ -1,0 +1,39 @@
+What is a server
+A server is a computer responsible for providing resources to clients on a
+network.
+
+What is the role of the domain name
+The domain name serves as the universal resource locator to web browser seeking
+information stored on any of its webpages and serves as an alias to numerical I.P
+addresses which humans cant remember.
+
+What type of DNS record www is in www.foobar.com
+It is an A Name record
+
+What is the role of the web server
+The web server provides webpage resources mostly as static http pages to
+clients connected to it.
+
+What is the role of the application server
+Provides the web/business logic to clients and/or provides dynamic webpages to
+clients.
+
+What is the role of the database
+The database stores retrievsble and modifiable data of the webpage.
+
+What is the server using to communicate with the computer of the user requesting the website
+The computer uses a web browser.
+
+
+
+ISSUES WITH THE INFASTRUCTURE
+SPOF
+The SPOF of this infastructure is in having only a single server computer.
+
+Downtime when maintenance needed
+In times of maintanance the entire webpage www.foobar.com will be totally
+unavailable to users due to having only one server.
+
+Cannot scale if too much incoming traffic
+When traffic increases this infastructure is unscalable with the available
+hardware remaining the same.
