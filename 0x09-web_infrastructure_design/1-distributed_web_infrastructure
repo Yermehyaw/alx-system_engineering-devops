@@ -1,0 +1,50 @@
+For every additional element, why you are adding it?
+The additional elements are: a second server and a lad balancer
+The second server was added to add redundancy incase of any failure and improve
+the overall performance of the domain.
+The load blancer is added to control the incomibg traffic by referring to the
+appropriate server between the two available servers
+
+What distribution algorithm your load balancer is configured with and how it works?
+My loadblancer is configured with Least connection algorithm where incoming
+traffic is given to the server with the least no of persisting connections.
+
+Your load-balancer enabling an Active-Active or Active-Passive setup, explain the difference between both
+The load-balancer in this infastructure enables am active-active setup  The
+active-active setup incvlves having all the available servers online, and
+delivering resoirces requested by clients while the active-passive invloves
+having a number of the available servers onlibe and responding to requests while
+the remaining act as backups, online yet not receiving or responding to client
+requests yet ever ready to take the place of any of the responsive servers in the
+case of a failure.
+
+How a database Primary-Replica (Master-Slave) cluster works?
+It works by having a aseparate databse called a replica/slave database which is
+constantly being synchronized to the master/primary database when any modification
+is made to it. This slave DB then acts as a backup to the master in the case of a
+failure or dtabase collapse.
+
+What is the difference between the Primary node and the Replica node in regard to the application
+The application principally fetches any needed record from the primary node and
+typicaly doesnt query the replica node even in the face of a failed primary node.
+
+
+PROBLEMS WITH THE INFASTRUCTURE
+Where are SPOF
+The SPOF is in the model of the database. Having a DB which only queries the
+master node creates unforseen downtime if the mater node becomes irresponsive.
+
+Security issues (no firewall, no HTTPS)
+No firewall or secure HTTP incurs the risk of intrusion by malicious clients to
+access sensitive data on the database and edit records, listen to other client's
+transmission to and fro the server and even totally hijacking one or all server(s).
+Also even normal usees can accidentally access records they shouldnt since there is no
+firewall to enforce the privileges they've been given.
+
+No monitoring
+With no monitoring, a better load balancing algorithm that utilizes monitoring
+cannot be used. When a server fails without monitoring in a least connection
+algorithm, the load-balancer can misinterpret it as having the server with the
+least connection and keep transferrring client request to the failed server. Also,
+with a master-slave DB model lacking monitoring the codebase cannot be made to switch
+to the slave node when the master node is down.
