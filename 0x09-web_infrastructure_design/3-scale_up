@@ -1,0 +1,8 @@
+For every additional element, why you are adding it
+A new separarte database server: A separate server to habnle databse queries exclusively
+will greatly add redundancy and remove the SPOF when the application server
+is down. Now any query to the database will be more successful regardless of the
+states of other servers.
+
+Additional load balancer: To remove the SPOF of having only one load blaancer
+anotger is addes to run concurrently or passively with the previous load balancer.
