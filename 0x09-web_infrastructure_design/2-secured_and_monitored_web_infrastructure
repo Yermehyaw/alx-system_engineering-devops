@@ -1,0 +1,48 @@
+For every additional element, why you are adding it
+Firewall: To act as a network barrier to blacklist traffic and enforse client
+and admistrator privileges
+SSL Cert.: To provide a layer of security to http pages transmission by end-to-end
+encryption of data packets.
+Monitoring clients: To monitor server and database availability, responsivity and
+processing speeds amongst others.
+
+What are firewalls for
+Firewalls are network barriers to ensure appropriate traffuc is received and
+responded to.
+
+Why is the traffic served over HTTPS
+To encrypt the dara beubg transferred from the server to client inorder to mitigate
+against cyberattacks.
+
+What monitoring is used for
+To ascertain the current running conditions of various components of the web
+infastructure.
+
+How the monitoring tool is collecting data
+It collects data by recording various stats of the server/database such as QPS and
+processing speeds which it uses to formulate concise information which the web
+admistrator can better understand. It can also mimic client traffic inorder in
+server testing scenerios.
+
+Explain what to do if you want to monitor your web server QPS
+A monitoring service would need to be installed on the database or a peripheral
+computer with the monitoring service prei stalked will be connected to the database.
+After this all queries which are given to the server and subsequently sent to the
+DB will be recorded by this monitoring client.
+
+
+
+PROBLEMS WITH THE INFASTRUCTURE
+Why terminating SSL at the load balancer level is an issue
+If the SSL is terminated at the load balancer level it leaves every component
+of the infastructure behind the load balancer vulnerable to sniffing attacks.
+
+Why having only one MySQL server capable of accepting writes is an issue
+With only one SQL server capable of write operations caled the master in the master-slave model
+will introduce a SPOF at the database wherein if the master model is down all writing
+queries to the DB will fail.
+
+Why having servers with all the same components (database, web server and application server) might be a problem
+It will greatly reduce the redundancy of the infastructure. Althoigh it may be power
+abd resource saving it'll ultimately lead to a one-fail-affects-all scenerio as
+they will be sharing several scarse system resources.
