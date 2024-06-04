@@ -19,10 +19,10 @@ requests yet ever ready to take the place of any of the responsive servers in th
 case of a failure.
 
 How a database Primary-Replica (Master-Slave) cluster works?
-It works by having a aseparate databse called a replica/slave database which is
+It works by having a separate databse called a replica/slave database capable of only read operations which is
 constantly being synchronized to the master/primary database when any modification
 is made to it. This slave DB then acts as a backup to the master in the case of a
-failure or dtabase collapse.
+failure or dtabase collapse. The master is capable of execyting both read and write queries.
 
 What is the difference between the Primary node and the Replica node in regard to the application
 The application principally fetches any needed record from the primary node and
