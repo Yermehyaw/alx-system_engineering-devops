@@ -31,8 +31,9 @@ typicaly doesnt query the replica node even in the face of a failed primary node
 
 PROBLEMS WITH THE INFASTRUCTURE
 Where are SPOF
-The SPOF is in the model of the database. Having a DB which only queries the
-master node creates unforseen downtime if the mater node becomes irresponsive.
+1. Having a DB which only queries the master node creates unforseen downtime if the mater node becomes irresponsive.
+2. Having only one load balancer
+3. Having the codebase at only one location without any backup
 
 Security issues (no firewall, no HTTPS)
 No firewall or secure HTTP incurs the risk of intrusion by malicious clients to
