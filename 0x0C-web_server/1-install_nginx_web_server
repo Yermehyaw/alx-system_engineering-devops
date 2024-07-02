@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# Request for a package for installation via curl
+
+sudo apt -y install nginx  # add --allow-downgrades flag when reverting upgrade
+sudo apt-get -y install ufw  # add --allow-downgrades flag when reverting upgrade
+sudo ufw allow 'Nginx HTTP'  # set nhinx server to listen on port 80
