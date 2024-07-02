@@ -10,7 +10,7 @@ class ssh_config {
 		      	   IdentityFile ~/.ssh/school
 	EOT
 
-	file { '~/.ssh/ssh_config':
+	file { '/etc/ssh/ssh_config':
             ensure => file,
       	    owner => 'root',
       	    group => 'root',
