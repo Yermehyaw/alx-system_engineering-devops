@@ -4,3 +4,7 @@
 sudo apt -y install nginx  # add --allow-downgrades flag when reverting upgrade
 sudo apt-get -y install ufw  # add --allow-downgrades flag when reverting upgrade
 sudo ufw allow 'Nginx HTTP'  # set nhinx server to listen on port 80
+
+mkdir -p /var/www  # -p creates any missing dirs leading to www/
+touch -c /var/wwww/html  # -c does nothing to the timestamp/file if it exists
+echo "Hello World!" > /var/www/html
