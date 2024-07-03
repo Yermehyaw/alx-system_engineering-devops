@@ -14,3 +14,20 @@ sudo touch -c /var/wwww/html/index.html  # -c flag does nothing to the timestamp
 echo "Hello World!" > /var/www/35.153.52.184/html/index.html  # Page must only serve "Hello World" text
 
 # Create server block to serve web content
+domain=35.153.52.184
+webroot=/var/www/35.153.52.184/html
+config="etc/nginx/conf.d/"$domain".conf"
+cat << EOF > $config
+server {
+       listen 80;
+       server_name "$domain"
+
+       location / {
+       		root "$weboroot"
+		index index.html
+       }
+}
+EOF
+
+# Reload Nginx to apply changes
+sudo kill -s HUP $(pgrep nginx)
