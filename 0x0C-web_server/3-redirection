@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+# Request for a package for installation via curl
+
+# Prerequisite installations
+sudo apt -y install nginx  # add --allow-downgrades flag when reverting upgrade
+sudo apt-get -y install ufw  # add --allow-downgrades flag when reverting upgrade
+
+# Allow nginx to pass through firewall
+sudo ufw allow 'Nginx HTTP'
+
+# Creating page content
+sudo mkdir -p /var/www/35.153.52.184/html  # -p creates any missing dirs leading to the html dir
+sudo chown -R "$USER":"$USER" /var/www/35.153.52.184/html  # set onership right to the cyrrent user
+sudo touch -c /var/www/35.153.52.184/html/index.html  # -c flag does nothing to the timestamp/file if it exists
+sudo chmod -R 755 /var/www/35.153.52.184/html  # ensure file has required permissions
+echo "Hello World!" | sudo tee  /var/www/35.153.52.184/html/index.html  > /dev/null  # Page must only serve "Hello World" string
+
+# Create server block to serve web content
+domain='35.153.52.184'
+webroot='/var/www/35.153.52.184/html'
+config="/etc/nginx/conf.d/$domain.conf"
+cat << EOF > "$config"
+server {
+       listen 80;
+       server_name "$domain";
+
+       location / {
+       		root "$webroot":
+		index index.html;
+       }
+}
+EOF
+
+# Redirect the /redirect_me page to google.con
+redirect_page="redirect_me"  # Page being redirected
+redirect_string="server_name $domain;\n\nlocation /$redirect_page {\n\t\treturn 301 http://$domain/www.google.com;\n}\n"
+sed -i "s/server_name $domain;/$redirect_string" "$config"  # "server_name $donain" was just used to locate an appropriate position to insert the redirect_string
+
+# Reload Nginx to apply changes
+sudo kill -s HUP "$(pgrep nginx)"
