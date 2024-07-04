@@ -22,11 +22,11 @@ config="/etc/nginx/conf.d/$domain.conf"
 cat << EOF > "$config"
 server {
        listen 80;
-       server_name "$domain"
+       server_name "$domain";
 
        location / {
-       		root "$webroot"
-		index index.html
+       		root "$webroot";
+		index index.html;
        }
 }
 EOF
