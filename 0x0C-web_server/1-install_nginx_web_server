@@ -10,9 +10,9 @@ sudo ufw allow 'Nginx HTTP'
 
 # Creating page content
 sudo mkdir -p /var/www/35.153.52.184/html  # -p creates any missing dirs leading to the html dir
-sudo chown -R "$USER":"$USER" /var/www/35.153.52.184/html  # set onership right to the cyrrent user
-sudo chmod -R 755 /var/www/35.153.52.184/html  # ensure file has rewuired permissions
-sudo touch -c /var/www/html/index.html  # -c flag does nothing to the timestamp/file if it exists
+sudo chown -R "root":"root" /var/www/35.153.52.184/html  # set onership right to the cyrrent user
+sudo chmod -R 766 /var/www/35.153.52.184/html  # ensure file has required permissions
+sudo touch -c /var/www/35.153.52.184/html/index.html  # -c flag does nothing to the timestamp/file if it exists
 echo "Hello World!" | sudo tee  /var/www/35.153.52.184/html/index.html  > /dev/null  # Page must only serve "Hello World" string
 
 # Create server block to serve web content
@@ -31,5 +31,11 @@ server {
 }
 EOF
 
-# Reload Nginx to apply changes
-sudo kill -s HUP "$(pgrep nginx)"
+# Reload/Start Nginx to apply changes
+nginx_status='ps aux | grep nginx'
+if eval "$nginx_status";  # check if nginx is running
+then
+	sudo kill -s HUP "$(pgrep nginx)"  # if yes, restart
+else
+	sudo service nginx start  # otherwise start it up
+fi
