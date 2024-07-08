@@ -3,7 +3,7 @@
 
 no_param=$#
 
-if [ $no_param -lt 3 ]
+if [ $no_param -lt 4 ]
 then
     echo "Usage: 0-transfer_file PATH_TO_FILE IP USERNAME PATH_TO_SSH_KEY"
 else
