@@ -2,8 +2,8 @@
 # Install an nginx web server software on a new Ubuntu os server
 
 # Install any ubuntu updates
-sudo apt -y update
-sudo apt -y upgrade
+#sudo apt -y update
+#sudo apt -y upgrade
 
 # Server software installations
 sudo apt -y install nginx  # add --allow-downgrades flag when reverting upgrade
