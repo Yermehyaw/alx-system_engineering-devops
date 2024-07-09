@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Add cusrom git commands to bash config file
+sudo tee -a ~/.bashrc > /dev/null << EOF
+alias ga='git add'
+alias gcm='git commit -m'
+alias gp='git push'
+alias gs='git status'
+EOF
