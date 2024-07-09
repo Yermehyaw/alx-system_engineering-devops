@@ -1,7 +1,11 @@
 #!/usr/bin/env bash
 # Install an nginx web server software on a new Ubuntu os server
 
-# Prerequisite installations
+# Install any ubuntu updates
+sudo apt -y update
+sudo apt -y upgrade
+
+# Server software installations
 sudo apt -y install nginx  # add --allow-downgrades flag when reverting upgrade
 sudo apt-get -y install ufw  # add --allow-downgrades flag when reverting upgrade
 
@@ -20,7 +24,7 @@ echo "Hello World!" | sudo tee  /var/www/100.25.10.28/html/index.html  > /dev/nu
 domain='100.25.10.28'
 webroot='/var/www/100.25.10.28/html'
 config_file="/etc/nginx/sites-available/$domain.conf"
-sufo tee "$config_file" > /dev/null <<EOF  # write into the config file specified in $config_file
+sudo tee "$config_file" > /dev/null <<EOF  # write into the config file specified in $config_file
 http {
 	server {
        		listen 80;
