@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 # Conect to my alx server
 
-ssh ubuntu@35.153.52.184
+ssh ubuntu@100.25.10.28
