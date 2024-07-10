@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+# Install an nginx web server software on a new Ubuntu os server
+
+# Install any ubuntu updates
+#sudo apt -y update
+#sudo apt -y upgrade
+
+# Server software installations
+sudo apt -y --fix-missing install nginx  # add --allow-downgrades flag when reverting upgrade
+sudo apt-get -y --fix-missing install ufw  # add --allow-downgrades flag when reverting upgrade
+
+# Allow nginx to pass through firewall
+sudo ufw allow 'Nginx HTTP'
+
+# Creating page content
+sudo mkdir -p /var/www/100.25.10.28/html  # -p creates any missing dirs leading to the html dir
+sudo chown -R "$USER":"$USER" /var/www/100.25.10.28/html  # set onership right to the cyrrent user
+sudo chmod -R 755 /var/www/100.25.10.28/html  # ensure file has required permissions
+sudo touch -c /var/www/100.25.10.28/html/index.html  # -c flag does nothing to the timestamp/file if it exists
+echo "Hello World!" | sudo tee  /var/www/100.25.10.28/html/index.html  > /dev/null  # Page must only serve "Hello World" string
+
+# Create server block to serve web content
+domain='100.25.10.28'
+webroot='/var/www/100.25.10.28/html'
+config_file="/etc/nginx/sites-available/$domain.conf"
+sudo tee "$config_file" > /dev/null <<EOF  # write into the config file specified in $config_file
+server {
+	listen 80;
+	server_name "$domain";
+
+	location / {
+		root "$webroot";
+		index index.html;
+		add_header X-Served-By "$HOSTNAME";
+       }
+}
+
+EOF
+
+sudo ln -s "$config_file" /etc/nginx/sites-enabled/  # activate/enable server block by making a symbolic link between config file and sites-enabled/ dir. Remove sym link to disable server block of website
+
+# Reload/Start Nginx to apply changes
+sudo nginx -s reload
