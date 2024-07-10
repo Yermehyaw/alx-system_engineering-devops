@@ -12,17 +12,18 @@ sudo apt-get -y --fix-missing install ufw  # add --allow-downgrades flag when re
 # Allow nginx to pass through firewall
 sudo ufw allow 'Nginx HTTP'
 
-# Creating page content
-sudo mkdir -p /var/www/18.235.249.119/html  # -p creates any missing dirs leading to the html dir
-sudo chown -R "$USER":"$USER" /var/www/18.235.249.119/html  # set onership right to the current user
-sudo touch -c /var/www/18.235.249.119/html/index.html  # -c flag does nothing to the timestamp/file if it exists
-sudo chmod -R 755 /var/www/18.235.249.119/html  # ensure file has required permissions
-echo "Hello World!" | sudo tee  /var/www/18.235.249.119/html/index.html  > /dev/null  # Page must only serve "Hello World" string
+domain='$(curl -s https://ipinfo.io/ip)'  # Get public ip address of server. For internal ip(not recommended except server is to be used only on private networks) use '$(hostname -I)'
+
+# Creating a Hello World page content
+sudo mkdir -p /var/www/"$domain"/html  # -p creates any missing dirs leading to the html dir
+sudo chown -R "$USER":"$USER" /var/www/"$domain"/html  # set onership right to the current user
+sudo touch -c /var/www/"$domain"/html/index.html  # -c flag does nothing to the timestamp/file if it exists
+sudo chmod -R 755 /var/www/"$domain"/html  # ensure file has required permissions
+echo "Hello World!" | sudo tee  /var/www/"$domain"/html/index.html  > /dev/null  # Page must only serve "Hello World" string
 
 
-# Create server block to serve web content
-domain='18.235.249.119'
-webroot='/var/www/18.235.249.119/html'
+# Create server block for this ip/host/domain
+webroot='/var/www/$domain/html'
 config_file="/etc/nginx/sites-available/$domain.conf"
 sudo tee "$config_file" > /dev/null <<EOF  # write into the config file specified in $config_file
 server {
@@ -51,5 +52,8 @@ sudo add-apt-repository ppa:vbernat/haproxy-2.8  # Add repo for installation
 sudo apt-get -y install haproxy=2.8.\*
 
 # Setup the Load balancer config file
-load_balancer_conf='/'
-sudo tee 
+load_balancer_conf='/etc/haproxy/haproxy.cfg'  # path to haproxy config file
+sudo tee -a "$load_balancer_conf" > /dev/null <<EOF
+backend "$domain"
+
+EOF
