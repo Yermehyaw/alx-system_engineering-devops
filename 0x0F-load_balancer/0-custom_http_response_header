@@ -15,24 +15,24 @@ sudo ufw allow 'Nginx HTTP'
 domain="$(curl -s https://ipinfo.io/ip)"  # Get public ip address of server. For internal ip(not recommended except server is to be used only on private networks) use "$(hostname -I)"
 
 # Creating page content
-sudo mkdir -p /var/www/"$domain"/html  # -p creates any missing dirs leading to the html dir
-sudo chown -R "$USER":"$USER" /var/www/"$domain"/html  # set onership right to the cyrrent user
-sudo touch -c /var/www/"$domain"/html/index.html  # -c flag does nothing to the timestamp/file if it exists
-sudo chmod -R 755 /var/www/"$domain"/html  # ensure file has required permissions
-echo "Hello World!" | sudo tee  /var/www/"$domain"/html/index.html  > /dev/null  # Page must only serve "Hello World" string
+sudo mkdir -p /var/www/"$remote_addr"/html  # -p creates any missing dirs leading to the html dir
+sudo chown -R "$USER":"$USER" /var/www/"$remote_addr"/html  # set onership right to the cyrrent user
+sudo touch -c /var/www/"$remote_addr"/html/index.html  # -c flag does nothing to the timestamp/file if it exists
+sudo chmod -R 755 /var/www/"$remote_addr"/html  # ensure file has required permissions
+echo "Hello World!" | sudo tee  /var/www/"$remote_addr"/html/index.html  > /dev/null  # Page must only serve "Hello World" string
 
 # Create server block to serve web content
-webroot="/var/www/$domain/html"
-config_file="/etc/nginx/sites-available/$domain.conf"
+webroot="/var/www/$remote_addr/html"
+config_file="/etc/nginx/sites-available/$remote_addr.conf"
 sudo tee "$config_file" > /dev/null <<EOF  # write into the config file specified in $config_file
 server {
 	listen 80;
-	server_name "$domain";
+	server_name "$host";
 
 	location / {
 		root "$webroot";
 		index index.html;
-		add_header X-Served-By "$HOSTNAME";
+		add_header X-Served-By "$host";
        }
 }
 
