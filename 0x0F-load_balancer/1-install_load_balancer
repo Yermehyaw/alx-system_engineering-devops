@@ -12,7 +12,7 @@ sudo apt-get -y --fix-missing install ufw  # add --allow-downgrades flag when re
 # Allow nginx to pass through firewall
 sudo ufw allow 'Nginx HTTP'
 
-domain='$(curl -s https://ipinfo.io/ip)'  # Get public ip address of server. For internal ip(not recommended except server is to be used only on private networks) use '$(hostname -I)'
+domain="$(curl -s https://ipinfo.io/ip)"  # Get public ip address of server. For internal ip(not recommended except server is to be used only on private networks) use '$(hostname -I)'
 
 # Creating a Hello World page content
 sudo mkdir -p /var/www/"$domain"/html  # -p creates any missing dirs leading to the html dir
@@ -23,7 +23,7 @@ echo "Hello World!" | sudo tee  /var/www/"$domain"/html/index.html  > /dev/null 
 
 
 # Create server block for this ip/host/domain
-webroot='/var/www/$domain/html'
+webroot="/var/www/$domain/html"
 config_file="/etc/nginx/sites-available/$domain.conf"
 sudo tee "$config_file" > /dev/null <<EOF  # write into the config file specified in $config_file
 server {
