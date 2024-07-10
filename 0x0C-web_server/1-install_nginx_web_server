@@ -12,9 +12,13 @@ sudo apt-get -y --fix-missing install ufw  # add --allow-downgrades flag when re
 # Allow nginx to pass through firewall
 sudo ufw allow 'Nginx HTTP'
 
-# Edit default page
+
+# Edit default page at /var/www/html/*.html
+
+# This is done to ensure 'curl localhost' returns this site. The default server block is used when no matching website is found. No server block for localhost is made thus this site will be returned to client. To make a custom site for localhost, first create a server block (which simulates an entire server i.e virtual web serving) for localhost.
+# P.S: Virtual web serving is one of the characteristic of nginx web serverssoftware  where nginx lets a single physical server host several donains/websites/resources but allows clients to xall for theses websites/resources separately as if they were on different physical servers.
 sudo chmod -R 755 /var/www/html  # ensure file has required permissions
-echo "Hello World!" | sudo tee  /var/www/html/index.nginx-debian.html  > /dev/null  # Page must only serve "Hello World" string
+echo "Hello World!" | sudo tee  /var/www/html/index.nginx-debian.html  > /dev/null  #Page must only serve "Hello World" string. 
 
 # Reload/Start Nginx to apply changes
 sudo nginx -s reload
