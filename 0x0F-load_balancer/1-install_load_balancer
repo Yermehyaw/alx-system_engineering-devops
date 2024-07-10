@@ -32,6 +32,8 @@ server {
 	location / {
 		root "$webroot";
 		index index.html;
+		add_header X-Served-By "$HOSTNAME";
+
        }
 }
 
@@ -46,7 +48,7 @@ sudo nginx -s reload
 # INSTALL HAProxy FOR LOADBALANCER
 sudo apt-get install --no-install-recommends software-properties-common
 sudo add-apt-repository ppa:vbernat/haproxy-2.8  # Add repo for installation
-sudo apt-get install haproxy=2.8.\*
+sudo apt-get -y install haproxy=2.8.\*
 
 # Setup the Load balancer config file
 load_balancer_conf='/'
