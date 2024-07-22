@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+# Queties a DNS for subdomains IP addresses for a given domain
+
+domain="$1"
+subdomain="$2"
+
+query_server ()
+{
+    if [ "$#" -lt 1 ]
+    then
+	echo "USAGE: 0-world_wide_web domain [subdomain]"
+	exit 1
+    elif [ "$#" -eq 1 ] && [ -n "$domain" ]  # 1 arg passed and not ""
+    then
+	# Query for IP and record types for known subdomains
+	ip=$(6dig www."$domain" | grep -A2 'ANSWER SECTION:' | awk 'NR<3 { print $5 }' | awk 'NR>1 { print $1 }')
+	record=$(dig www."$domain" | grep -A2 'ANSWER SECTION:' | awk 'NR<3 { print $4 }' |  awk 'NR>1 { print $1 }')
+	echo "The subdomain www is a $record record and points to $ip"
+
+	ip=$(dig lb-01."$domain" | grep -A2 'ANSWER SECTION:' | awk 'NR<3 { print $5 }' | awk 'NR>1 { print $1 }')
+	record=$(dig lb-01."$domain" | grep -A2 'ANSWER SECTION:' | awk 'NR<3 { print $4 }' |  awk 'NR>1 { print $1 }')
+	echo "The subdomain lb-01 is a $record record and points to $ip"
+
+	ip=$(dig web-01."$domain" | grep -A2 'ANSWER SECTION:' | awk 'NR<3 { print $5 }' | awk 'NR>1 { print $1 }')
+	record=$(dig web-01."$domain" | grep -A2 'ANSWER SECTION:' | awk 'NR<3 { print $4 }' |  awk 'NR>1 { print $1 }')
+	echo "The subdomain web-01 is a $record record and points to $ip"
+
+	ip=$(dig web-02."$domain" | grep -A2 'ANSWER SECTION:' | awk 'NR<3 { print $5 }' | awk 'NR>1 { print $1 }')
+	record=$(dig web-02."$domain" | grep -A2 'ANSWER SECTION:' | awk 'NR<3 { print $4 }' |  awk 'NR>1 { print $1 }')
+	echo "The subdomain web-02 is a $record record and points to $ip"
+
+	exit 0
+    elif [ "$#" -eq 2 ] && [ -n "$1" ] && [ -n "$2" ]  # 2 args passed and not ""
+    then
+	# Query a specific domain for IP and record details
+	ip=$(dig "$subdomain"."$domain" | grep -A2 'ANSWER SECTION:' | awk 'NR<3 { print $5 }' | awk 'NR>1 { print $1 }')
+	record=$(dig "$subdomain"."$domain" | grep -A2 'ANSWER SECTION:' | awk 'NR<3 { print $4 }' |  awk 'NR>1 { print $1 }')
+	echo "The subdomain $subdomain is a $record record and points to $ip"
+	exit 0
+    fi
+}
