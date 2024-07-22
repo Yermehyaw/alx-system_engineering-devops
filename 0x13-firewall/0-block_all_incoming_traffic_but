@@ -1,0 +1,5 @@
+apt install ufw
+ufw allow in ssh
+ufw allow in 443
+ufw allow in 80
+ufw -y enable
