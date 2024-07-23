@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Create a new database and a new table  in  the db
+# Using msql prompt
+mysql57 -p projectcorrection280hbtn # something like that to login into db
+mysql # add SELECT perm to holberton_user
+
+
+CREATE DATABASE IF NOT EXISTS tyrell_corp;
+CREATE TABLE IF NOT EXISTS nexus6 IN tyrell_corp;
+
+# in bash
+mysql -u holberton_user -p -e "CREATE DATABASE IF NOT EXISTS tyrell_ . . ."
+
+
