@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+mysql57 -u replica_user %   # im only assuming-u is the flag to create user. use man mysql57. 
+# When prompted for password enter:
+mysql57 replica_user # Set privliges to user to be able to replcate/copy a DB
+
+mysql57 holberton_user # Grant master-user holberton_user SELECT privileges on the mysql.user table
+
