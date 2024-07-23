@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+mysql57 -u holberton_user localhost  # im only assuming-u is the flag to create user. use man mysql57. 
+# When prompted for password enter: projectcorrection280hbtn
+mysql57 loberton_user  # Set privliges to user to be able to check satus of dadtabases.
+
