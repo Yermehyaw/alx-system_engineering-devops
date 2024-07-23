@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# Create a source database with its replica databse using mysql DBMS
+
+# Permit incoming connections from replica to sorce via the 3306 port
+# in source server use:
+sudo ufw allow from 18.209.178.215 to any port 3306
+
+# Ensure outgoing connections are permitted on replica server
+# on replica server:
+sudo ufw allow to 54.157.166.142 to any port 3306 # I kinda made this one up
+
+# In source server
+vi /etc/mysql57/mysql57.conf.d  # Cgeck the appr path to be certain
+
+
