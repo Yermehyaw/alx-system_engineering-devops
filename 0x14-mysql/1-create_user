@@ -1,5 +1,19 @@
 #!/usr/bin/env bash
-mysql57 -u holberton_user localhost  # im only assuming-u is the flag to create user. use man mysql57. 
-# When prompted for password enter: projectcorrection280hbtn
-mysql57 loberton_user  # Set privliges to user to be able to check satus of dadtabases.
+# Use whoami to echo an arg passed
 
+# No arg is passed to script
+if [ "$#" -eq 0 ]
+then
+    echo ""
+    return 0
+fi
+
+user = "$1"
+
+# Arg passed. create a temporary user
+sudo useradd -e 2024-07-25 "$user"  # adjust data as appropriate
+
+# execute whoami as the new user
+sudo -i -u "$user" bash << EOF
+whoami
+EOF
