@@ -13,7 +13,7 @@ symbolic-links=0
 server-id       = 1
 # DEfines the location and basename for binary file
 log_bin         = /var/log/mysql/mysql-bin.log
-# ANme of db to be replicated in master-slave setup
+# Name of db to be replicated in master-slave setup
 binlog_do_db    = tyrell_corp
 
 
