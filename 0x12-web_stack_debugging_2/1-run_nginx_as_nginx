@@ -11,8 +11,8 @@ sudo chown -R nginx:nginx /var/log/nginx/
 sudo chown -R nginx:nginx /var/lib/nginx/
 
 # Change default user directive in nginx config file
-sudo sed -i "s/user root;/user nginx;/g" >> /etc/nginx/nginx.conf
+sudo sed -i "s/user root;/user nginx;/g"  "/etc/nginx/nginx.conf"
 
 # Edit port nginx listens to 8080 because root is needed for deafault port
 # number of 80. Only root user can listen on any port no below 1024
-sudo sed -i "s/listen 80;/listen 8080;/g" >> /etc/nginx/nginx.conf
+sudo sed -i "s/listen 80;/listen 8080;/g" "/etc/nginx/nginx.conf"
