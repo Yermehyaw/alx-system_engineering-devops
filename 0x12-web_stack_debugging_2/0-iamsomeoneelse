@@ -11,13 +11,13 @@ fi
 user="$1"
 
 # Arg passed. create a temporary user if the user dosent exist
-exists=$(id -u "$user" >/dev/null 2>&1)  # search /eyc/paaswd for user profile
-if [ -z "$exists" ]
+if id -u "$user" >/dev/null 2>&1
 then
-    sudo useradd -e 2024-07-25 "$user"  # adjust data as appropriate
-fi
-
-# execute whoami as the new user
-sudo -i -u "$user" bash << EOF
+    echo "$user"
+else
+    sudo useradd -e 2024-07-26 "$user"  # adjust data as appropriate
+    # execute whoami as the new user
+    sudo -i -u "$user" bash << EOF
 whoami
 EOF
+fi
