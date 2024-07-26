@@ -9,8 +9,8 @@ sudo useradd nginx  # create user that nginx will henceforth work as
 sudo chown -R nginx:nginx /var/log/nginx/
   # library files
 sudo chown -R nginx:nginx /var/lib/nginx/
-  # pid file(s)
-sudo chown -R nginx:nginx /run/
+  # nginx pid file
+sudo chown nginx:nginx /run/nginx.pid
 
 # Change default user directive in nginx config file
 sudo sed -i "s/user root;/user nginx;/g"  /etc/nginx/nginx.conf
