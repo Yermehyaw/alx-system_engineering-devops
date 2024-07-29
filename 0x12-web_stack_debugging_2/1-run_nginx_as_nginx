@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+# Removes nginx sercer from logging in  as root
+sudo useradd nginx  # create user that nginx will henceforth work as
+
+# Change ownership of nginx installation and log files
+  # installation file. Not sure if necessary.
+# sudo chown -R nginx:nginx /usr/sbin/nginx
+  # log files especially access.log and error.log
+sudo chown -R nginx:nginx /var/log/nginx/
+  # library files
+sudo chown -R nginx:nginx /var/lib/nginx/
+  # nginx pid file
+sudo chown nginx:nginx /run/nginx.pid
+
+# Change default user directive in nginx config file
+sudo sed -i "s/user root;/user nginx;/g"  /etc/nginx/nginx.conf  # if root
+sudo sed -i "s/user www-data;/user nginx;/g"  /etc/nginx/nginx.conf #if www-data
+
+# Edit port nginx listens to 8080 because root is needed for deafault port
+# number of 80. Only root user can listen on any port no below 1024
+sudo sed -i "s/listen 80;/listen 8080;/g" /etc/nginx/nginx.conf
+
+# restart nginx
+sudo systemctl restart nginx

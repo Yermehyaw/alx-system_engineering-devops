@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+# Use whoami to echo an arg passed
+
+# No arg is passed to script
+if [ "$#" -eq 0 ]
+then
+    echo ""
+    return 0
+fi
+
+user="$1"
+
+# Arg passed. create a temporary user if the user dosent exist
+if id -u "$user" >/dev/null 2>&1
+then
+    echo "$user"
+else
+    sudo useradd -e 2024-07-26 "$user"  # adjust data as appropriate
+    # execute whoami as the new user
+    sudo -i -u "$user" bash << EOF
+whoami
+EOF
+fi
