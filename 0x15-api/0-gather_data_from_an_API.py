@@ -40,7 +40,7 @@ def get_employee(employee_id):
     with requests.get(r) as response:
         json_obj = response.json()  # list of dicts
         print(json_obj)
-        total = len(json_obj)  # only user specific to-dos is in response
+        total = len(json_obj)  # only user specific tasks are in response
         tasks_completed = 0
         tasks_title = []
         for i in range(total):
@@ -51,8 +51,10 @@ def get_employee(employee_id):
                     tasks_title.append(json_obj[i].get('title'))
     result = (
         f"Employee {employee_name} is done with ({tasks_completed}/{total})"
-        + f"{print_style(tasks_title)}"
+        + f"\t {tasks_title[0]}"
+        + f"\t {tasks_title[1]}"
         )
+    print(tasks_title)
     print(result)
     return result
 
