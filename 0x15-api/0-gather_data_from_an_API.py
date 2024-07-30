@@ -26,14 +26,13 @@ def get_employee(employee_id):
         raise TypeError("Enter a valid argument")
 
     # Get employee name
+    r = f"https://jsonplaceholder.typicode.com/users/{employee_id}"
     try:
-        r = f"https://jsonplaceholder.typicode.com/users/{employee_id}"
+       response = requests.get(r)
     except requests.exeception.RequestException:
         return "Conection failed"
-    response = requests.get(r)
     json_obj = response.json()  # a dict
     employee_name = json_obj.get('name')  # no need to make an extra var
-    print(employee_name)
 
     # get the to-do list
     r = f"https://jsonplaceholder.typicode.com/todos/?userId={employee_id}"
@@ -59,4 +58,5 @@ def get_employee(employee_id):
 
 if __name__ == "__main__":
     employee_id = sys.argv[1]
+#    employee_id = 1  # for mobile testing
     get_employee(employee_id)
