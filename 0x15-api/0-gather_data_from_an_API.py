@@ -49,28 +49,13 @@ def get_employee(employee_id):
                 if key == 'completed' and value:
                     tasks_completed += 1
                     tasks_title.append(json_obj[i].get('title'))
-    result = (
-        f"Employee {employee_name} is done with ({tasks_completed}/{total})"
-        + f"\t {tasks_title[0]}"
-        + f"\t {tasks_title[1]}"
-        )
-    print(tasks_title)
+    result = (f"Employee {employee_name} is done with\
+            ({tasks_completed}/{total})")
     print(result)
+    for i in range(tasks_completed):
+        print(f"\t {tasks_title[i]}")
+    print(tasks_title)
     return result
-
-
-def print_style(list_str):
-    """
-    Returns formatted text derived from a list
-
-    Args:
-    list_str(str): a list of strings
-
-    Return:
-    formatted string
-    """
-    for i in range(len(list_str)):
-        return f"\t {list_str[i]}"
 
 
 if __name__ == "__main__":
