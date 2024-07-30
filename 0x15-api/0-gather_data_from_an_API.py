@@ -49,12 +49,11 @@ def get_employee(employee_id):
                 if key == 'completed' and value:
                     tasks_completed += 1
                     tasks_title.append(json_obj[i].get('title'))
-    result = (f"Employee {employee_name} is done with\
-            ({tasks_completed}/{total})")
+    result = (f"Employee {employee_name} is done with tasks\
+            ({tasks_completed}/{total}):")
     print(result)
     for i in range(tasks_completed):
         print(f"\t {tasks_title[i]}")
-    print(tasks_title)
     return result
 
 
