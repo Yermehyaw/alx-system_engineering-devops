@@ -29,7 +29,7 @@ def get_employee(employee_id):
     r = f"https://jsonplaceholder.typicode.com/users/{employee_id}"
     try:
        response = requests.get(r)
-    except requests.exeception.RequestException:
+    except requests.exception.RequestException:
         return "Conection failed"
     json_obj = response.json()  # a dict
     employee_name = json_obj.get('name')  # no need to make an extra var
