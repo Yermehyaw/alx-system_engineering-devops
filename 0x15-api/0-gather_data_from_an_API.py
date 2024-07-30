@@ -29,7 +29,7 @@ def get_employee(employee_id):
     r = f"https://jsonplaceholder.typicode.com/users/{employee_id}"
     try:
        response = requests.get(r)
-    except requests.exception.RequestException:
+    except requests.exceptions.RequestException:
         return "Conection failed"
     json_obj = response.json()  # a dict
     employee_name = json_obj.get('name')  # no need to make an extra var
@@ -38,7 +38,6 @@ def get_employee(employee_id):
     r = f"https://jsonplaceholder.typicode.com/todos/?userId={employee_id}"
     with requests.get(r) as response:
         json_obj = response.json()  # list of dicts
-        print(json_obj)
         total = len(json_obj)  # only user specific tasks are in response
         tasks_completed = 0
         tasks_title = []
