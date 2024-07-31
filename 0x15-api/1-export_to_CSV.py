@@ -81,5 +81,5 @@ if __name__ == '__main__':
         print('Couldnt create csv file')
 
     with open(f'{employee_id}.csv', 'w', newline='') as f:
-        write_in = csv.write(f)
-        write_in.write(csv_data)
+        write_into = csv.write(f)
+        write_into.writerows(csv_data)
