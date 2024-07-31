@@ -31,6 +31,7 @@ def get_all():
     user_json_obj = user_response.json()  # a list of dict
     print(user_json_obj)
     total_employees = len(user_json_obj)
+    print(total_employees)
     employee_id = []
     employee_username = []
 
@@ -42,6 +43,8 @@ def get_all():
     todo_json_obj = todo_response.json()  # list of dicts also
     print(todo_json_obj)
     total_todos = len(todo_json_obj)
+    total_todo_per_employee = int(total_todos / total_employees)
+    print(total_todo_per_employee)
     tasks_title = []
     tasks_status = []
 
@@ -51,18 +54,18 @@ def get_all():
     for i in range(total_employees):
         employee_id.append(user_json_obj[i].get('id'))
         employee_username.append(user_json_obj[i].get('username'))
-        for j in range(total_todos):
-            tasks_status.append(todo_json_obj[j].get('completed'))
+        for j in range(total_todo_per_employee):
             tasks_title.append(todo_json_obj[j].get('title'))
+            tasks_status.append(todo_json_obj[j].get('completed'))
             employee_variables = {
-                "username": employee_username,
+                "username": employee_username[i],
                 "task": tasks_title[j],
                 "completed": tasks_status[j]
             }
             result.append(employee_variables)
+        result_dict.update({employee_id[i]: [result[j]]})
 
-        result_dict.update({employee_id[i]: result[i]})
-
+    # return dict of list values. the lists are a list of dicts
     return result_dict
 
 
