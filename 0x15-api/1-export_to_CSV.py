@@ -28,11 +28,11 @@ def get_csv(employee_id):
         raise TypeError("Enter a valid argument")
 
     # Get employee name and username
+    r = f"https://jsonplaceholder.typicode.com/users/{employee_id}"
     try:
-        r = f"https://jsonplaceholder.typicode.com/users/{employee_id}"
+        response = requests.get(r)
     except requests.execeptions.RequestException:
         return "Conection failed"
-    response = requests.get(r)
     json_obj = response.json()  # a dict
     employee_name = json_obj.get('name')
     employee_username = json_obj.get('username')
