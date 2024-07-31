@@ -42,19 +42,12 @@ def get_csv(employee_id):
     with requests.get(r) as response:
         json_obj = response.json()  # list of dicts
         print(json_obj)
+        tasks_title = []
+        tasks_status = []
         total = len(json_obj)  # only user specific tasks are in response
-        tasks_title = task_status = []
         for i in range(total):
-            for key, value in json_obj[i].items():
-                # if key and value corresponds to 'completed: true'
-                if key == 'completed':
-                    if int(value) == 1:
-                        task_status = 'True' # change to ist
-                        print(task_status)
-                    else:
-                        task_status = 'False'
-                        print(task_status)
-                tasks_title.append(json_obj[i].get('title'))
+            tasks_status.append(json_obj[i].get('completed'))
+            tasks_title.append(json_obj[i].get('title'))
 
     # Get employee details in csv
     result = []
@@ -64,7 +57,7 @@ def get_csv(employee_id):
         employee_variables = [
             f'"{employee_id}"',
             f'"{employee_username}"',
-            f'"{task_status}"',
+            f'"{tasks_status[i]}"',
             f'"{tasks_title[i]}"'
         ]
         result.append(employee_variables)
