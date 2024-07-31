@@ -41,30 +41,33 @@ def get_csv(employee_id):
     r = f"https://jsonplaceholder.typicode.com/todos/?userId={employee_id}"
     with requests.get(r) as response:
         json_obj = response.json()  # list of dicts
+        print(json_obj)
         total = len(json_obj)  # only user specific tasks are in response
-        tasks_title = []
+        tasks_title = task_status = []
         for i in range(total):
             for key, value in json_obj[i].items():
                 # if key and value corresponds to 'completed: true'
                 if key == 'completed':
-                    task_status = str(value)
-                    tasks_title.append(json_obj[i].get('title'))
+                    if int(value) == 1:
+                        task_status = 'True' # change to ist
+                        print(task_status)
+                    else:
+                        task_status = 'False'
+                        print(task_status)
+                tasks_title.append(json_obj[i].get('title'))
 
     # Get employee details in csv
     result = []
     rows = total
-    cols = 4  # only employee_id, username, status and title is used
 
     for i in range(rows):  # different values of tasks_title to append to list
         employee_variables = [
-            employee_id,
-            employee_username,
-            task_status,
-            tasks_title[i]
+            f'"{employee_id}"',
+            f'"{employee_username}"',
+            f'"{task_status}"',
+            f'"{tasks_title[i]}"'
         ]
-        print(employee_variables)
         result.append(employee_variables)
-    print(result)
     return result
 
 
@@ -72,5 +75,10 @@ if __name__ == '__main__':
     employee_id = sys.argv[1]
     csv_data = get_csv(employee_id)  # csv is a list of lists
     with open(f'{employee_id}.csv', 'w', newline='') as f:
-        write_into = csv.writer(f, quotechar='"', delimiter=',')
+        write_into = csv.writer(
+            f,
+            quoting=csv.QUOTE_MINIMAL,
+            quotechar="'",
+            delimiter=','
+        )
         write_into.writerows(csv_data)
