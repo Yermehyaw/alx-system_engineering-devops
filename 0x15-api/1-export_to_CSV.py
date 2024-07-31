@@ -48,7 +48,7 @@ def get_csv(employee_id):
                 # if key and value corresponds to 'completed: true'
                 if key == 'completed':
                     task_status = str(value)
-                    tasks_title.append(json_obj[i].get('title'))  # list of dict
+                    tasks_title.append(json_obj[i].get('title'))
 
     # Get employee details in csv
     result = []
@@ -66,7 +66,6 @@ def get_csv(employee_id):
         result.append(employee_variables)
     print(result)
     return result
-
 
 
 if __name__ == '__main__':
