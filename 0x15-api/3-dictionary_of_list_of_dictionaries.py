@@ -12,7 +12,7 @@ import requests
 import sys
 
 
-def get_all(employee_id):
+def get_all():
     """
     Returns an employee's details from a REST API endpoint in JSON format
 
@@ -22,51 +22,51 @@ def get_all(employee_id):
     Return:
     a JSON file
     """
-    # Get name and username of all employees
+    # Get name, username and to-do list of all employees
+    r = f"https://jsonplaceholder.typicode.com/users/"
     try:
-        r = f"https://jsonplaceholder.typicode.com/users/"
+        user_response = requests.get(r)
     except requests.execeptions.RequestException:
         return "Conection failed"
-    response = requests.get(r)
-    json_obj = response.json()  # a list of dict
+    user_json_obj = user_response.json()  # a list of dict
+    print(user_json_obj)
     total_employees = len(json_obj)
-    employee_name = []
+    employee_id = []
     employee_username = []
-    for i in range(total_employees):
-        employee_name.append(json_obj[i].get('name'))
-        employee_username.append(json_obj[i].get('username'))
 
-    # get to-do list of all employees
     r = f"https://jsonplaceholder.typicode.com/todos/"
-    with requests.get(r) as response:
-        json_obj = response.json()  # list of dicts
-        print(json_obj)
-        tasks_title = []
-        tasks_status = []
-        total = len(json_obj)
-        for i in range(total):
-            tasks_status.append(json_obj[i].get('completed'))
-            tasks_title.append(json_obj[i].get('title'))
+    try:
+        todo_response = requests.get(r)
+    except requests.execeptions.RequestException:
+        return "Conection failed"
+    todo_json_obj = response.json()  # list of dicts also
+    print(todo_json_obj)
+    total_todos = len(todo_json_obj)
+    tasks_title = []
+    tasks_status = []
 
-    # Get employee details in a dict with a list as its value
+    # Iterate through json_obj's and collate info from all employees
     result = []
-    result_dict = {employee_id: result}
-    rows = total
+    result_dict = {}
+    for i in range(total_employees):
+        employee_name.append(user_json_obj[i].get('id'))
+        employee_username.append(user_json_obj[i].get('username'))
+        for j in range(total_todos):
+            tasks_status.append(todo_json_obj[j].get('completed'))
+            tasks_title.append(todo_json_obj[j].get('title'))
+            employee_variables = {
+                "username": employee_username,
+                "task": tasks_title[j],
+                "completed": tasks_status[j]
+            }
+            result.append(employee_variables)
 
-    for i in range(rows):  # different values of tasks_title to append to list
-        employee_variables = {
-            "username": employee_username,
-            "task": tasks_title[i],
-            "completed": tasks_status[i]
-        }
-        result.append(employee_variables)
+        result_dict.update({employee_id[i]: result[i]})
 
-    for i in 
     return result_dict
 
 
 if __name__ == '__main__':
-    employee_id = sys.argv[1]
-    json_data = get_json(employee_id)
+    json_data = get_all()
     with open(f'{employee_id}.json', 'w') as f:
         json.dump(json_data, f)
