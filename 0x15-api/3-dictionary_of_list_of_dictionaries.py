@@ -30,7 +30,7 @@ def get_all():
         return "Conection failed"
     user_json_obj = user_response.json()  # a list of dict
     print(user_json_obj)
-    total_employees = len(json_obj)
+    total_employees = len(user_json_obj)
     employee_id = []
     employee_username = []
 
@@ -39,7 +39,7 @@ def get_all():
         todo_response = requests.get(r)
     except requests.execeptions.RequestException:
         return "Conection failed"
-    todo_json_obj = response.json()  # list of dicts also
+    todo_json_obj = todo_response.json()  # list of dicts also
     print(todo_json_obj)
     total_todos = len(todo_json_obj)
     tasks_title = []
@@ -49,7 +49,7 @@ def get_all():
     result = []
     result_dict = {}
     for i in range(total_employees):
-        employee_name.append(user_json_obj[i].get('id'))
+        employee_id.append(user_json_obj[i].get('id'))
         employee_username.append(user_json_obj[i].get('username'))
         for j in range(total_todos):
             tasks_status.append(todo_json_obj[j].get('completed'))
@@ -68,5 +68,5 @@ def get_all():
 
 if __name__ == '__main__':
     json_data = get_all()
-    with open(f'{employee_id}.json', 'w') as f:
+    with open('todo_all_employees.json', 'w') as f:
         json.dump(json_data, f)
