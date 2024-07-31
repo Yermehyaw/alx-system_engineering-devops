@@ -67,5 +67,5 @@ def get_json(employee_id):
 if __name__ == '__main__':
     employee_id = sys.argv[1]
     json_data = get_json(employee_id)
-    with open(f'{employee_id}.csv', 'w') as f:
-        json.load(json_data, f)
+    with open(f'{employee_id}.json', 'w') as f:
+        json.dump(json_data, f)
