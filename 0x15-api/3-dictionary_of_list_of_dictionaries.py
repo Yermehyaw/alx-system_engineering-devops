@@ -49,21 +49,22 @@ def get_all():
     tasks_status = []
 
     # Iterate through json_obj's and collate info from all employees
-    result = []
     result_dict = {}
     for i in range(total_employees):
         employee_id.append(user_json_obj[i].get('id'))
         employee_username.append(user_json_obj[i].get('username'))
         for j in range(total_todo_per_employee):
-            tasks_title.append(todo_json_obj[j].get('title'))
-            tasks_status.append(todo_json_obj[j].get('completed'))
-            employee_variables = {
-                "username": employee_username[i],
-                "task": tasks_title[j],
-                "completed": tasks_status[j]
-            }
-            result.append(employee_variables)
-        result_dict.update({employee_id[i]: [result[j]]})
+            result = []
+            for k in range(total_todo_per_employee):
+                tasks_title.append(todo_json_obj[k].get('title'))
+                tasks_status.append(todo_json_obj[k].get('completed'))
+                employee_variables = {
+                    "username": employee_username[i],
+                    "task": tasks_title[k],
+                    "completed": tasks_status[k]
+                }
+                result.append(employee_variables)
+            result_dict.update({employee_id[i]: result})
 
     # return dict of list values. the lists are a list of dicts
     return result_dict
