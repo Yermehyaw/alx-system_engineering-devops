@@ -14,10 +14,10 @@ import sys
 
 def get_all():
     """
-    Returns an employee's details from a REST API endpoint in JSON format
+    Returns details of all employees from a REST API endpoint in JSON format
 
     Args:
-    employee_id(int): Unique employee id
+    None
 
     Return:
     a JSON file
@@ -30,7 +30,7 @@ def get_all():
         return "Conection failed"
     user_json_obj = user_response.json()  # a list of dict
     print(user_json_obj)
-    total_employees = len(user_json_obj)
+    total_employees = len(user_json_obj)  # 10
     print(total_employees)
     employee_id = []
     employee_username = []
@@ -42,13 +42,13 @@ def get_all():
         return "Conection failed"
     todo_json_obj = todo_response.json()  # list of dicts also
     print(todo_json_obj)
-    total_todos = len(todo_json_obj)
-    total_todo_per_employee = int(total_todos / total_employees)
+    total_todos = len(todo_json_obj)  # 200
+    total_todo_per_employee = int(total_todos / total_employees)  # 20
     print(total_todo_per_employee)
     tasks_title = []
     tasks_status = []
 
-    # Iterate through json_obj's and collate info from all employees
+    # Iterate through json_obj's and collate the desired info from all employees
     result_dict = {}
     for i in range(total_employees):
         employee_id.append(user_json_obj[i].get('id'))
@@ -66,7 +66,7 @@ def get_all():
                 result.append(employee_variables)
             result_dict.update({employee_id[i]: result})
 
-    # return dict of list values. the lists are a list of dicts
+    # return dict of list values. the list are a list of dicts
     return result_dict
 
 
