@@ -18,6 +18,11 @@ def number_of_subscribers(subreddit):
     Return:
     No of subs a subreddit has
     """
-url = ''
-with requests.get(url, follow_redirects=false) as response:
+url = 'https://reddit.com/dev/api/r/about'
+with requests.get(url, follow_redirects=false) as response:  # wont a with staemnt cause limitations in wrong subreddits passed
     resp_json = response.json()
+    if count in resp_json:
+        no_subs = rsp_json['count']
+        return no_subs
+    else:
+        return 0
