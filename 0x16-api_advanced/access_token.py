@@ -6,14 +6,18 @@ import requests
 
 
 base_url = 'https://www.reddit.com/'
-data = {'grant_type': 'password', 'username': 'Yermehyaw', 'password': 'Iye@omo1234'}
-auth = requests.auth.HTTPBasicAuth('I_M-_KZ9Lnm_eSkmbag_GQ', 'B7uPvJvBFzZmKp_7excUK8XWOTlUpA')
+data = {'grant_type': 'authorization_code', 'code': 'M8x345PCjK5Kwrji5FNUCLetopH-Ww', 'redirect_uri': 'http://localhost:8080'}
+headers = {
+    'user-agent': 'Ubuntu:qrMl883hmAyK8IRqBCr99Q:v1.0(by /u/Yermehyaw)',
+    'content-type': 'application/x-www-form-urlencoded'
+}
+auth = requests.auth.HTTPBasicAuth('qrMl883hmAyK8IRqBCr99Q', 'K6A2JsE3qRH9wW_TE3dqxKkOPTp2Xg')
 r = requests.post(
-            base_url + 'api/v1/access_token',
-            data=data,
-            headers={'user-agent': 'Ubuntu:I_M-_KZ9Lnm_eSkmbag_GQ:v1.0(by /u/Yermehyaw)'},
-		    auth=auth
-    )
+    base_url + 'api/v1/access_token',
+    data=data,
+    headers=headers,
+    auth=auth
+)
 
 r_json = r.json()
-return r_json['access_token']
+print(r_json)
