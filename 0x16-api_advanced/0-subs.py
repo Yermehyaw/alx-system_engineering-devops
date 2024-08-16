@@ -18,11 +18,16 @@ def number_of_subscribers(subreddit):
     Return:
     No of subs a subreddit has
     """
-url = 'https://reddit.com/dev/api/r/about'
-with requests.get(url, follow_redirects=false) as response:  # wont a with staemnt cause limitations in wrong subreddits passed
-    resp_json = response.json()
-    if count in resp_json:
-        no_subs = rsp_json['count']
+    try:
+        url = f'https://www.reddit.com/r/{subreddit}/about.json'
+        response = requests.get(url, allow_redirects=False)
+    except Exception as e:
+        print(f'An exception has occurred: {e}')
+        return 0
+
+    if response.status_code == 200:
+        resp_json = response.json()
+        no_subs = rsp_json['data']['subscribers']
         return no_subs
     else:
         return 0
