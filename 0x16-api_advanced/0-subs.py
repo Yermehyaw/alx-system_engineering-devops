@@ -29,5 +29,18 @@ def number_of_subscribers(subreddit):
         resp_json = response.json()
         no_subs = rsp_json['data']['subscribers']
         return no_subs
+    elif response.status_code == 301:
+        new_loc = response.headers['Location']
+
+        try:
+            new_resp = requests.get(new_loc)
+        except Exception as e:
+            print(f'An exception has occurred: {e}')
+            return 0
+
+        resp_json = new_resp.json()
+        no_subs = resp_json['data']['subscribers']
+        return no_subs
+
     else:
         return 0
