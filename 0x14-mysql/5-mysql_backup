@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# Create an emergency mysql backup of all databases
+
+
+# Retrieve root password from user
+PWORD=$1
+
+# Create a backup mysql dump file
+mysqldump --all-databases --host=localhost -port=3306 -u root --password=$PWORD > backup.sql
+
+# Compress dump file to an archive
+tar -cz -f $(date +%d-%m-%Y).tar.gz backup.sql
